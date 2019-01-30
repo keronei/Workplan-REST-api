@@ -2,11 +2,11 @@ import os
 class OverallConfig(object):
     CSRF_ENABLED = True
     SECRET = os.getenv('SECRET')
-    DATABASE = 'workplan'
+    DATABASE = 'workplan_dev'
     POSTGRES = {
     'user':'keronei',
     'pw':'',
-    'db':'workplan',
+    'db':'workplan_dev',
     'host':'localhost',
     'port':'5432'
      }
@@ -19,7 +19,7 @@ class Development(OverallConfig):
     dev environ configuration
     """
     DEBUG = True
-    TESTING = True
+    TESTING = False
     
 
 class Testing():

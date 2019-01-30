@@ -1,7 +1,10 @@
+from flask import Response, jsonify, request
 from flask_restful import Resource
-from flask import request, jsonify, Response
-from app.api.v1.models.operations import *
+
+from app.api.v1.models.operations import (Activities, Comments, Output,
+                                          RevokeToken, Users)
 from app.api.v1.utils.decorators import token_requiried
+
 
 class ActivityViews(Resource):
     def __init__(self):
@@ -15,9 +18,9 @@ class ActivityViews(Resource):
         if(identifier is None):
             return self.activity_model.query_activity()
         elif identifier is not None and under_output is None:
-            return jsonify(self.activity_model.query_activity(identifier))
+            return self.activity_model.query_activity(identifier)
         else:
-            return jsonify(self.activity_model.query_activity(identifier, under_output))
+            return self.activity_model.query_activity(identifier, under_output)
     
     @token_requiried
     def delete(self, identifier=None):
@@ -48,7 +51,7 @@ class OutputViews(Resource):
         if(identifier is None):
             return self.output_model.query_outputs()
         else:
-            return jsonify(self.output_model.query_outputs(identifier))
+            return self.output_model.query_outputs(identifier)
         
     @token_requiried
     def put(self, identifier=None):
@@ -119,6 +122,3 @@ class Misc(Resource):
                 return [{"status": 202, "data": "Logged out successfully"}]
             return [{"status": 400, "data": "Bad token, Not logged in"}]
         return [{"status": 401, "data": "Not authenticated, no token on your header"}]
-            
-        
-    

@@ -15,7 +15,7 @@ class BaseTest(TestCase):
         self.app_context = _app.app_context()
         self.app_context.push()
         db.create_all()
-        db.session.commit()
+        # db.session.commit()
         
         self.output_details = {
             "name":"Maternity support"
@@ -107,12 +107,13 @@ class BaseTest(TestCase):
         }
         
         self.comment_details = {
+            
             "comment": "started well",
             "author_user_id" : 1,
             "activity_id" :1
         }
 
-        self.get_comment_detail = { "comment": "started well","created_on": datetime.today().strftime("%d %B %Y %H:%M"), "email": "superomondi@rocketmail.io" }
+        self.get_comment_detail = { "actual_comment_id":1,"comment": "started well","created_on": datetime.today().strftime("%d %B %Y %H:%M"), "email": "superomondi@rocketmail.io" }
         
     def create_account(self):
         response = self.app.post('/api/v1/auth/sign-up/', data=json.dumps(
